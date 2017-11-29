@@ -1255,20 +1255,25 @@ open class Manager : ArmchairManager {
                 } else {
                     /// Didn't show storekit prompt, present app store manually
                     let alertView : UIAlertController = UIAlertController(title: reviewTitle, message: reviewMessage, preferredStyle: UIAlertControllerStyle.alert)
-                    alertView.addAction(UIAlertAction(title: rateButtonTitle, style:UIAlertActionStyle.cancel, handler: {
+                    let rateAppAction = UIAlertAction(title: rateButtonTitle, style:UIAlertActionStyle.default, handler: {
                         (alert: UIAlertAction!) in
                         self._rateApp()
-                    }))
+                    })
+                    alertView.addAction(rateAppAction)
                     if (showsRemindButton()) {
                         alertView.addAction(UIAlertAction(title: remindButtonTitle!, style:UIAlertActionStyle.default, handler: {
                             (alert: UIAlertAction!) in
                             self.remindMeLater()
                         }))
                     }
-                    alertView.addAction(UIAlertAction(title: cancelButtonTitle, style:UIAlertActionStyle.default, handler: {
+                    alertView.addAction(UIAlertAction(title: cancelButtonTitle, style:UIAlertActionStyle.cancel, handler: {
                         (alert: UIAlertAction!) in
                         self.dontRate()
                     }))
+
+                    if #available(iOS 9.0, *) {
+                        alertView.preferredAction = rateAppAction
+                    }
 
                     ratingAlert = alertView
 
