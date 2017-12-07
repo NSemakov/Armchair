@@ -1816,6 +1816,7 @@ open class Manager : ArmchairManager {
     // MARK: -
     // MARK: Singleton
     public class var defaultManager: Manager {
+        assert(Armchair.appID != "", "Armchair.appID(appID: String) has to be the first Armchair call made.")
         struct Singleton {
             static let instance: Manager = Manager(appID: Armchair.appID)
         }
