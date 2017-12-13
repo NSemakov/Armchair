@@ -1396,9 +1396,13 @@ open class Manager : ArmchairManager {
     }
     
     private func _rateApp() {
-        rateApp()
-        if let closure = didOptToRateClosure {
-            closure()
+        if let presentingController = UIApplication.shared.keyWindow?.rootViewController {
+            presentingController.dismiss(animated: true, completion: { [weak self] in
+                self?.rateApp()
+                if let closure = self?.didOptToRateClosure {
+                    closure()
+                }
+            })
         }
     }
     
